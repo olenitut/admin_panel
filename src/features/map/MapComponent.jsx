@@ -7,6 +7,7 @@ import MapClickHandler from "./MapClickHandler";
 import { useState } from "react";
 import Modal from "../../ui/Modal";
 import CreateCabinForm from "../cabins/CreateCabinForm";
+import { useDarkMode } from "../../context/DarkModeContext";
 
 const spain = [40.416775, -3.70379];
 
@@ -14,6 +15,10 @@ const MapComponent = () => {
   const { isLoading, cabins } = useCabins();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [clicked, setClicked] = useState(null);
+  const { isDark } = useDarkMode();
+  const url = `https://{s}.basemaps.cartocdn.com/${
+    isDark ? "dark" : "light"
+  }_all/{z}/{x}/{y}{r}.png`;
 
   if (isLoading) return <Spinner />;
   const handleClick = (coords) => {
@@ -24,7 +29,7 @@ const MapComponent = () => {
   return (
     <div>
       <MapContainer center={spain} zoom={14} style={{ height: "65vh" }}>
-        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+        <TileLayer url={url} />
         <MapClickHandler onCoords={handleClick} />
         {cabins?.map((el) => {
           if (typeof el.position === "string")

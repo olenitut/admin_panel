@@ -86,7 +86,7 @@ const MainNav = () => {
         <li>
           <StyledNavLink to="/map">
             <HiOutlineMap />
-            <span>Cabins on map</span>
+            <span>Map</span>
           </StyledNavLink>
         </li>
       </NavList>

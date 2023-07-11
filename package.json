@@ -23,6 +23,7 @@
     "react-icons": "^4.10.1",
     "react-leaflet": "^4.2.1",
     "react-router-dom": "^6.14.1",
+    "react-tooltip": "^5.18.0",
     "recharts": "^2.7.2",
     "styled-components": "^6.0.2"
   },

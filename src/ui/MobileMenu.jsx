@@ -108,7 +108,7 @@ const MobileMenu = () => {
         <li onClick={toggleMenu}>
           <StyledNavLink to="/map">
             <HiOutlineMap />
-            <span>Cabins on Map</span>
+            <span>Map</span>
           </StyledNavLink>
         </li>
       </NavList>
