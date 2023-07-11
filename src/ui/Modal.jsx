@@ -67,7 +67,6 @@ const Button = styled.button`
 const ModalContext = createContext();
 
 const Window = ({ children, name, isOpen }) => {
-  debugger;
   const { close, openName } = useContext(ModalContext);
   if (name !== openName && !isOpen) return null;
 

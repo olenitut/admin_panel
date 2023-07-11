@@ -8,6 +8,7 @@ import {
   HiOutlineCog6Tooth,
   HiOutlineHome,
   HiOutlineHomeModern,
+  HiOutlineMap,
 } from "react-icons/hi2";
 import Button from "./Button";
 
@@ -63,6 +64,7 @@ const StyledMobileMenu = styled.div`
   left: 0;
   right: 0;
   background-color: var(--color-grey-0);
+  z-index: 1000;
 `;
 
 const MobileMenu = () => {
@@ -101,6 +103,12 @@ const MobileMenu = () => {
           <StyledNavLink to="/settings">
             <HiOutlineCog6Tooth />
             <span>Settings</span>
+          </StyledNavLink>
+        </li>
+        <li onClick={toggleMenu}>
+          <StyledNavLink to="/map">
+            <HiOutlineMap />
+            <span>Cabins on Map</span>
           </StyledNavLink>
         </li>
       </NavList>
