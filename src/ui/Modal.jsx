@@ -66,9 +66,10 @@ const Button = styled.button`
 
 const ModalContext = createContext();
 
-const Window = ({ children, name }) => {
+const Window = ({ children, name, isOpen }) => {
+  debugger;
   const { close, openName } = useContext(ModalContext);
-  if (name !== openName) return null;
+  if (name !== openName && !isOpen) return null;
 
   const handleOverlayClick = (e) => {
     if (e.currentTarget === e.target) {
@@ -94,9 +95,12 @@ const Open = ({ children, opens }) => {
   return <div>{cloneElement(children, { onClick: () => open(opens) })}</div>;
 };
 
-const Modal = ({ children }) => {
+const Modal = ({ children, onClose }) => {
   const [openName, setOpenName] = useState("");
-  const close = () => setOpenName("");
+  const close = () => {
+    setOpenName("");
+    onClose?.();
+  };
   const open = setOpenName;
 
   return (

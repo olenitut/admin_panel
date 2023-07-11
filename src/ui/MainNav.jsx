@@ -6,6 +6,7 @@ import {
   HiOutlineCog6Tooth,
   HiOutlineHome,
   HiOutlineHomeModern,
+  HiOutlineMap,
 } from "react-icons/hi2";
 
 const NavList = styled.ul`
@@ -80,6 +81,12 @@ const MainNav = () => {
           <StyledNavLink to="/settings">
             <HiOutlineCog6Tooth />
             <span>Settings</span>
+          </StyledNavLink>
+        </li>
+        <li>
+          <StyledNavLink to="/map">
+            <HiOutlineMap />
+            <span>Cabins on map</span>
           </StyledNavLink>
         </li>
       </NavList>

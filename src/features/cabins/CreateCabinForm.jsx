@@ -7,6 +7,7 @@ import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
 import { useForm } from "react-hook-form";
 import useCreateEditCabin from "./useCreateEditCabin";
+import Heading from "../../ui/Heading";
 
 const FormRow = styled.div`
   display: grid;
@@ -51,7 +52,7 @@ const Error = styled.span`
   color: var(--color-red-700);
 `;
 
-function CreateCabinForm({ editData, onClose }) {
+function CreateCabinForm({ coords = "", editData, onClose }) {
   const { register, handleSubmit, getValues, formState } = useForm({
     defaultValues: editData ? editData : {},
   });
@@ -74,6 +75,7 @@ function CreateCabinForm({ editData, onClose }) {
       onSubmit={handleSubmit(onSubmit)}
       type={onClose ? "modal" : "regular"}
     >
+      <Heading as="h3">Add Cabin</Heading>
       <FormRow>
         <Label htmlFor="name">Cabin name</Label>
         <Input
@@ -123,6 +125,18 @@ function CreateCabinForm({ editData, onClose }) {
           })}
         />
         {errors?.discount && <Error>{errors?.discount.message}</Error>}
+      </FormRow>
+      <FormRow>
+        <Label htmlFor="position">Position</Label>
+        <Input
+          defaultValue={coords}
+          type="text"
+          id="position"
+          {...register("position", {
+            required: "This field is required",
+          })}
+        />
+        {errors?.position && <Error>{errors?.position.message}</Error>}
       </FormRow>
 
       <FormRow>
