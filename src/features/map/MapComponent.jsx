@@ -32,11 +32,10 @@ const MapComponent = () => {
         <TileLayer url={url} />
         <MapClickHandler onCoords={handleClick} />
         {cabins?.map((el) => {
-          if (typeof el.position === "string")
-            el.position = JSON.parse(el.position);
+          const [lat, lng] = el.position.split(",");
           return (
             <Marker
-              position={[el.position.latitude, el.position.longitude]}
+              position={[lat, lng]}
               eventHandlers={{
                 mouseover: (event) => event.target.openPopup(),
                 mouseout: (event) => event.target.closePopup(),
@@ -56,12 +55,7 @@ const MapComponent = () => {
       </MapContainer>
       <Modal onClose={() => setIsModalOpen(false)}>
         <Modal.Window name="cabin-form" isOpen={isModalOpen}>
-          <CreateCabinForm
-            coords={JSON.stringify({
-              latitude: clicked?.lat,
-              longitude: clicked?.lng,
-            })}
-          />
+          <CreateCabinForm coords={`${clicked?.lat},${clicked?.lng}`} />
         </Modal.Window>
       </Modal>
     </div>
