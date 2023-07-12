@@ -1,20 +1,13 @@
-import { styled } from "styled-components";
 import MapComponent from "../features/map/MapComponent";
 import Heading from "../ui/Heading";
-import TooltipButton from "../ui/Tooltip";
-
-const StyledTooltipContainer = styled.div`
-  position: relative;
-  width: max-content;
-`;
+import Tooltip from "../ui/Tooltip";
 
 const Map = () => {
   return (
     <>
-      <StyledTooltipContainer>
+      <Tooltip text="Click on a position on the map to add a cabin there">
         <Heading as="h1">View and Add Cabins on Map</Heading>
-        <TooltipButton text="Click on a position on the map to add a cabin there" />
-      </StyledTooltipContainer>
+      </Tooltip>
       <MapComponent />
     </>
   );

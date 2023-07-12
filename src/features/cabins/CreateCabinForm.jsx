@@ -128,6 +128,7 @@ function CreateCabinForm({ coords = "", editData, onClose }) {
       </FormRow>
       <FormRow>
         <Label htmlFor="position">Position</Label>
+
         <Input
           defaultValue={coords}
           type="text"
@@ -136,7 +137,11 @@ function CreateCabinForm({ coords = "", editData, onClose }) {
             required: "This field is required",
           })}
         />
-        {errors?.position && <Error>{errors?.position.message}</Error>}
+        {errors?.position ? (
+          <Error>{errors?.position.message}</Error>
+        ) : (
+          <p>{`Eg. "50.2575,-3.5555"`}</p>
+        )}
       </FormRow>
 
       <FormRow>
