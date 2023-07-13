@@ -68,6 +68,8 @@ function BookingTable() {
 
   const filter = searchParams.get("filter");
   const sort = searchParams.get("sort");
+  const search = searchParams.get("search");
+
   if (isLoading) return <Spinner />;
   if (!bookings?.length) return <Empty resource="bookings" />;
 
@@ -91,6 +93,20 @@ function BookingTable() {
     if (direction === "desc") {
       bookingsToRender?.reverse();
     }
+  }
+
+  if (search) {
+    bookingsToRender = bookingsToRender.filter((el) => {
+      let toInclude = false;
+      Object.keys(el).forEach((key) => {
+        el[key];
+        if (JSON.stringify(el[key]).toLowerCase().includes(search)) {
+          toInclude = true;
+        }
+      });
+
+      return toInclude;
+    });
   }
 
   const pageCount = Math.ceil(bookingsToRender?.length / itemsPerPage);

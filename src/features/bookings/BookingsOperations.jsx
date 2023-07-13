@@ -1,4 +1,5 @@
 import Filter from "../../ui/Filter";
+import Search from "../../ui/Search";
 import SortBy from "../../ui/SortBy";
 import TableOperations from "../../ui/TableOperations";
 
@@ -23,6 +24,7 @@ const BookingsOperations = () => {
     <TableOperations>
       <Filter filters={filters} />
       <SortBy sorts={sorts} />
+      <Search />
     </TableOperations>
   );
 };

@@ -11,6 +11,7 @@ const CabinTable = () => {
 
   const filter = searchParams.get("filter");
   const sort = searchParams.get("sort");
+  const search = searchParams.get("search");
 
   let cabinsToRender = cabins;
   if (filter === "discount") {
@@ -31,6 +32,20 @@ const CabinTable = () => {
     if (direction === "desc") {
       cabinsToRender?.reverse();
     }
+  }
+
+  if (search) {
+    cabinsToRender = cabinsToRender.filter((el) => {
+      let toInclude = false;
+      Object.keys(el).forEach((key) => {
+        el[key];
+        if (JSON.stringify(el[key]).toLowerCase().includes(search)) {
+          toInclude = true;
+        }
+      });
+
+      return toInclude;
+    });
   }
 
   if (isLoading) return <Spinner />;
