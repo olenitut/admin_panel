@@ -41,7 +41,7 @@ const FilterButton = styled.button`
 
 const Filter = ({ filters }) => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const curretnFilter = searchParams.get("filter");
+  const curretnFilter = searchParams.get("filter") || filters[0].value;
 
   const handleClick = (val) => {
     searchParams.set("filter", val);

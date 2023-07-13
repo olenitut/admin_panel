@@ -108,7 +108,7 @@ function AddBookingForm({ editData, onClose }) {
               <DatePicker
                 id="startDate"
                 {...field}
-                selected={new Date(field.value)}
+                selected={field.value ? new Date(field.value) : null}
                 onChange={(date) => field.onChange(date)}
               />
             </div>
@@ -126,7 +126,7 @@ function AddBookingForm({ editData, onClose }) {
             <DatePicker
               id="endDate"
               {...field}
-              selected={new Date(field.value)}
+              selected={field.value ? new Date(field.value) : null}
               onChange={(date) => field.onChange(date)}
             />
           )}

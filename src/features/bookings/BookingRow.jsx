@@ -12,6 +12,7 @@ import Menus from "../../ui/Menus";
 import { HiOutlineExternalLink, HiPencil, HiTrash } from "react-icons/hi";
 import ConfirmDelete from "../../ui/ConfirmDelete";
 import AddBookingForm from "./AddBookingForm";
+import useDeleteBooking from "./useDeleteBooking";
 
 const Cabin = styled.div`
   font-size: 1.6rem;
@@ -68,6 +69,7 @@ function BookingRow({ booking }) {
   };
 
   const navigate = useNavigate();
+  const { isLoading, mutate } = useDeleteBooking();
 
   return (
     <Table.Row>
@@ -121,8 +123,8 @@ function BookingRow({ booking }) {
             </Modal.Window>
             <Modal.Window name="delete-cabin">
               <ConfirmDelete
-              // onConfirm={() => mutate(id)}
-              // disabled={isLoading}
+                onConfirm={() => mutate(bookingId)}
+                disabled={isLoading}
               />
             </Modal.Window>
           </Menus.Menu>
