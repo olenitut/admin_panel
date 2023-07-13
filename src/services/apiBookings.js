@@ -1,4 +1,6 @@
-import { getToday } from "../utils/helpers";
+import { countNumNights, getToday } from "../utils/helpers";
+import { getCabin } from "./apiCabins";
+import { getSettings } from "./apiSettings";
 import supabase from "./supabaseClient";
 
 export const getBookings = async () => {
@@ -81,21 +83,6 @@ export async function getStaysTodayActivity() {
   return data;
 }
 
-export async function updateBooking(id, obj) {
-  const { data, error } = await supabase
-    .from("bookings")
-    .update(obj)
-    .eq("id", id)
-    .select()
-    .single();
-
-  if (error) {
-    console.error(error);
-    throw new Error("Booking could not be updated");
-  }
-  return data;
-}
-
 export async function deleteBooking(id) {
   // REMEMBER RLS POLICIES
   const { data, error } = await supabase.from("bookings").delete().eq("id", id);
@@ -106,3 +93,59 @@ export async function deleteBooking(id) {
   }
   return data;
 }
+
+export const updateBooking = async (booking) => {
+  const bookingData = await prepareBooking(booking);
+
+  delete bookingData.guests;
+  delete bookingData.cabins;
+
+  const { data, error } = await supabase
+    .from("bookings")
+    .update(bookingData)
+    .eq("id", bookingData.id)
+    .select();
+
+  if (error) {
+    console.log(error);
+    throw new Error(`Booking could not be updated`);
+  }
+
+  return data;
+};
+
+export async function createBooking(bookingData) {
+  const booking = await prepareBooking(bookingData);
+
+  const { data, error } = await supabase
+    .from("bookings")
+    .insert([{ ...booking }])
+    .select()
+    .single();
+
+  if (error) {
+    console.error(error);
+    throw new Error("Booking could not be added");
+  }
+  return data;
+}
+
+const prepareBooking = async (bookingData) => {
+  bookingData.numNights = countNumNights(
+    bookingData.startDate,
+    bookingData.endDate
+  );
+  const { regularPrice: cabinPrice } = await getCabin(bookingData.cabinId);
+  bookingData.cabinPrice = cabinPrice * bookingData.numNights;
+  let extrasPrice = 0;
+
+  if (bookingData.hasBreakfast) {
+    const { breakfastPrice } = await getSettings();
+    extrasPrice = breakfastPrice * bookingData.numNights;
+  }
+
+  bookingData.extrasPrice = extrasPrice;
+  bookingData.totalPrice = extrasPrice + bookingData.cabinPrice;
+
+  return bookingData;
+};

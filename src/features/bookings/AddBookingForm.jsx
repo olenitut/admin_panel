@@ -15,7 +15,7 @@ const statusOptions = [
   { value: "checked-out", title: "Checked-out" },
   { value: "checked-in", title: "Checked-in" },
 ];
-// import useCreateEditCabin from "./useCreateEditCabin";
+import useCreateEditBooking from "./useCreateEditBooking";
 
 const FormRow = styled.div`
   display: grid !important;
@@ -76,23 +76,20 @@ const Error = styled.span`
 `;
 
 function AddBookingForm({ editData, onClose }) {
-  const { register, handleSubmit, getValues, formState, control } = useForm({
+  const { register, handleSubmit, formState, control } = useForm({
     defaultValues: editData ? editData : {},
   });
   const { errors } = formState;
-  // const { isLoading, mutate } = useCreateEditCabin(editData);
-  const isLoading = false;
+  const { isLoading, mutate } = useCreateEditBooking(editData);
   const onSubmit = (data) => {
-    debugger;
-    // mutate(
-    //   {
-    //     ...data,
-    //     image: typeof data.image === "string" ? data.image : data.image[0],
-    //   },
-    //   {
-    //     onSuccess: () => onClose?.(),
-    //   }
-    // );
+    mutate(
+      {
+        ...data,
+      },
+      {
+        onSuccess: () => onClose?.(),
+      }
+    );
   };
 
   return (

@@ -74,3 +74,18 @@ export const editCabin = async (cabinData) => {
 
   return data;
 };
+
+export async function getCabin(id) {
+  const { data, error } = await supabase
+    .from("cabins")
+    .select("regularPrice")
+    .eq("id", id)
+    .single();
+
+  if (error) {
+    console.error(error);
+    throw new Error("Cabin price could not be loaded");
+  }
+
+  return data;
+}
