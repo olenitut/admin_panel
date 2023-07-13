@@ -7,6 +7,11 @@ import Table from "../../ui/Table";
 import { formatCurrency } from "../../utils/helpers";
 import { formatDistanceFromNow } from "../../utils/helpers";
 import { useNavigate } from "react-router-dom";
+import Modal from "../../ui/Modal";
+import Menus from "../../ui/Menus";
+import { HiOutlineExternalLink, HiPencil, HiTrash } from "react-icons/hi";
+import ConfirmDelete from "../../ui/ConfirmDelete";
+import AddBookingForm from "./AddBookingForm";
 
 const Cabin = styled.div`
   font-size: 1.6rem;
@@ -61,10 +66,11 @@ function BookingRow({ booking }) {
     "checked-in": "green",
     "checked-out": "silver",
   };
+
   const navigate = useNavigate();
 
   return (
-    <Table.Row onClick={() => navigate(`/bookings/${bookingId}`)}>
+    <Table.Row>
       <Cabin>{cabinName}</Cabin>
 
       <Stacked>
@@ -88,6 +94,40 @@ function BookingRow({ booking }) {
       <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
 
       <Amount>{formatCurrency(totalPrice)}</Amount>
+      <div>
+        <Modal>
+          <Menus.Menu>
+            <Menus.Toggle id={bookingId} />
+
+            <Menus.List id={bookingId}>
+              <Modal.Open opens="create-cabin">
+                <Menus.Button icon={<HiPencil />}>Edit</Menus.Button>
+              </Modal.Open>
+
+              <Modal.Open opens="delete-cabin">
+                <Menus.Button icon={<HiTrash />}>Delete</Menus.Button>
+              </Modal.Open>
+              <Modal.Open
+                opens="see-detail"
+                onClick={() => navigate(`/bookings/${bookingId}`)}
+              >
+                <Menus.Button icon={<HiOutlineExternalLink />}>
+                  See Detail
+                </Menus.Button>
+              </Modal.Open>
+            </Menus.List>
+            <Modal.Window name="create-cabin">
+              <AddBookingForm editData={booking} />
+            </Modal.Window>
+            <Modal.Window name="delete-cabin">
+              <ConfirmDelete
+              // onConfirm={() => mutate(id)}
+              // disabled={isLoading}
+              />
+            </Modal.Window>
+          </Menus.Menu>
+        </Modal>
+      </div>
     </Table.Row>
   );
 }

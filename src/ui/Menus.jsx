@@ -98,7 +98,7 @@ const Toggle = ({ id }) => {
     }
   };
   return (
-    <StyledToggle onClick={handleClick}>
+    <StyledToggle onClick={handleClick} className="toggle">
       <HiEllipsisVertical />
     </StyledToggle>
   );

@@ -93,10 +93,10 @@ const Header = ({ children }) => {
     </StyledHeader>
   );
 };
-const Row = ({ children, onClick }) => {
+const Row = ({ children }) => {
   const { columns } = useContext(TableContext);
   return (
-    <StyledRow role="row" columns={columns} onClick={() => onClick?.()}>
+    <StyledRow role="row" columns={columns}>
       {children}
     </StyledRow>
   );
