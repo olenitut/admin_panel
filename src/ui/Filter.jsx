@@ -45,6 +45,8 @@ const Filter = ({ filters }) => {
 
   const handleClick = (val) => {
     searchParams.set("filter", val);
+    // searchParams.set("page", 1);
+    // debugger;
     setSearchParams(searchParams);
   };
   return (
