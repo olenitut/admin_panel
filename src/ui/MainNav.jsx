@@ -83,12 +83,6 @@ const MainNav = () => {
             <span>Settings</span>
           </StyledNavLink>
         </li>
-        <li>
-          <StyledNavLink to="/map">
-            <HiOutlineMap />
-            <span>Map</span>
-          </StyledNavLink>
-        </li>
       </NavList>
     </nav>
   );

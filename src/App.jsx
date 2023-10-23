@@ -14,6 +14,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
 import DarkModeProvider from "./context/DarkModeContext";
 import Map from "./pages/Map";
+import Uploader from "./data/Uploader";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -39,7 +40,7 @@ function App() {
               <Route path="cabins" element={<Cabins />} />
               <Route path="settings" element={<Settings />} />
               <Route path="account" element={<Account />} />
-              <Route path="map" element={<Map />} />
+              <Route path="upload" element={<Uploader />} />
             </Route>
             <Route path="login" element={<Login />} />
             <Route path="*" element={<PageNotFound />} />
